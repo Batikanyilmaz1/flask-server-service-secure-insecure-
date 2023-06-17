@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Service UI</title>
+</head>
+<body>
+  <h1>Welcome to the Web Service!</h1>
+
+  <h2>Fibonacci Sequence</h2>
+  <form id="fibonacci-form">
+    <label for="fibonacci-input">Enter a number:</label>
+    <input type="number" id="fibonacci-input" name="num" required>
+    <button type="submit">Calculate</button>
+  </form>
+  <div id="fibonacci-result"></div>
+
+  <h2>Reverse String</h2>
+  <form id="reverse-form">
+    <label for="reverse-input">Enter a string:</label>
+    <input type="text" id="reverse-input" name="str" required>
+    <button type="submit">Reverse</button>
+  </form>
+  <div id="reverse-result"></div>
+
+  <script>
+    // Handle form submissions and display results
+    document.getElementById('fibonacci-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const num = document.getElementById('fibonacci-input').value;
+      fetch(`/fibonacci/?num=${num}`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('fibonacci-result').textContent = data;
+        });
+    });
+
+    document.getElementById('reverse-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const str = document.getElementById('reverse-input').value;
+      fetch(`/reverse/?str=${str}`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('reverse-result').textContent = data;
+        });
+    });
+  </script>
+</body>
+</html>
